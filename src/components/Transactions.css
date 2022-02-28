@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+}
+
+.app {
+  background-color: #ff7a64;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #b3a73e;
+}
+
+.container {
+  background-color: white;
+  max-width: 768px;
+  width: 100%;
+  margin: 0auto;
+  color: #444;
+  padding: 2rem 3rem;
+}
+
+.loading {
+  text-align: center;
+}
