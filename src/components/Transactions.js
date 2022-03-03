@@ -5,6 +5,7 @@ import axios from "axios";
 const Transactions = () => {
   //use state to save transactions
   const [transactions, setTransactions] = useState(false);
+
   const getTransactions = async (path = "/transactions") => {
     //sending a resopnse to our own api
     const url = `http://localhost:5000${path}`;
@@ -30,10 +31,44 @@ const Transactions = () => {
     }
   };
 
+  const saveTransaction = async (id, d, val, date) => {
+    let path = "/database";
+
+    //why did url work?
+    const url = `http://localhost:5000${path}`;
+
+    //why didnt stringify work?
+    var data = {
+      Value: val,
+      Description: d,
+      Date: date,
+    };
+
+    const response = await axios.post(url, data);
+    console.log(response);
+    let element = document.getElementById(id);
+    element.remove();
+  };
+
   const renderTransaction = (transaction) => (
     <li key={transaction.id} className="item">
       <span>{transaction.attributes.description}</span>
       <span>{transaction.attributes.amount.value}</span>
+      <span>{Date(transaction.attributes.createdAt)}</span>
+
+      <button
+        id={transaction.id}
+        onClick={(e) =>
+          saveTransaction(
+            transaction.id,
+            transaction.attributes.description,
+            transaction.attributes.amount.value,
+            Date(transaction.attributes.createdAt)
+          )
+        }
+      >
+        Save Transaction
+      </button>
     </li>
   );
 
