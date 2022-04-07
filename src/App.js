@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import Transactions from "./components/Transactions.js";
 import Snapshot from "./components/Snapshot.js";
 import SavedTransactions from "./components/SavedTransactions.js";
+import './App.css'
 import io from "socket.io-client";
 import axios from "axios";
+import Container from 'react-bootstrap/Container'
 
 const tranState = 1;
 const snapState = 2;
@@ -53,25 +55,31 @@ function App() {
     return (
       <div className="App">
         <Transactions />
-        <button onClick={snapshotSection}>Transaction Snapshot</button>
-        <button onClick={savedTransSection}>Saved Transactions</button>
-        <button onClick={saveInfo}>Save a Snapshot</button>
+        <div className="buttonsMenu">
+          <button onClick={snapshotSection}>Transaction Snapshot </button>
+          <button onClick={savedTransSection}>Saved Transactions</button>
+          <button onClick={saveInfo}>Save a Snapshot</button>
+        </div>
       </div>
     );
   } else if (screenState === snapState) {
     return (
       <div className="App">
         <Snapshot />
-        <button onClick={transactionSection}>Current Transactions</button>
-        <button onClick={savedTransSection}>Saved Transactions</button>
+        <div className="buttonsMenu">
+          <button onClick={transactionSection}>Current Transactions</button>
+          <button onClick={savedTransSection}>Saved Transactions</button>
+        </div>
       </div>
     );
   } else if (screenState === savedTransState) {
     return (
       <div className="App">
         <SavedTransactions />
-        <button onClick={transactionSection}>Current Transactions</button>
-        <button onClick={snapshotSection}>Transaction Snapshot</button>
+        <div className="buttonsMenu">
+          <button onClick={transactionSection}>Current Transactions</button>
+          <button onClick={snapshotSection}>Transaction Snapshot</button>
+        </div>
       </div>
     );
   }

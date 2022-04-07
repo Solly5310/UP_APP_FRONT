@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import './SavedTransactions.css'
 const SavedTransactions = () => {
   const [savedTransactions, setSaved] = useState(false);
 
@@ -17,12 +17,25 @@ const SavedTransactions = () => {
   }, []);
 
   const renderSavedTransactions = (e) => {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const transDate = new Date(e.date).toLocaleDateString(undefined, options)
+    
+    
     return (
-      <div>
+      <div className="transBox">
         <li>
-          <span>{e.description}</span>
-          <span>{e.value}</span>
-          <span>{e.date}</span>
+          <table>
+              <tr>
+                <th>Description</th>
+                <th className="amount">Amount</th>
+                <th>Date</th>
+              </tr>
+              <tr>
+                <td>{e.description}</td>
+                <td>{e.value}</td>
+                <td>{transDate}</td>
+              </tr>
+          </table>
         </li>
       </div>
     );

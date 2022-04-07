@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Transactions.css";
 import axios from "axios";
-
 const Transactions = () => {
   //use state to save transactions
   const [transactions, setTransactions] = useState(false);
@@ -50,27 +49,46 @@ const Transactions = () => {
     element.remove();
   };
 
-  const renderTransaction = (transaction) => (
-    <li key={transaction.id} className="item">
-      <span>{transaction.attributes.description}</span>
-      <span>{transaction.attributes.amount.value}</span>
-      <span>{Date(transaction.attributes.createdAt)}</span>
+  const renderTransaction = (transaction) => 
+    {
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const transDate = new Date(transaction.attributes.createdAt).toLocaleDateString(undefined, options)
 
-      <button
-        id={transaction.id}
-        onClick={(e) =>
-          saveTransaction(
-            transaction.id,
-            transaction.attributes.description,
-            transaction.attributes.amount.value,
-            Date(transaction.attributes.createdAt)
-          )
+      return (
+              <li key={transaction.id} className="item">
+                
+                <table>
+                  <tr>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                  </tr>
+                  <tr>
+                    <td>{transaction.attributes.description}</td>
+                    <td>{transaction.attributes.amount.value}</td>
+                    <td>{transDate}</td>
+                  </tr>
+                </table>
+                <div>
+                  <button
+                    className="transButton"
+                    id={transaction.id}
+                    onClick={(e) =>
+                      saveTransaction(
+                        transaction.id,
+                        transaction.attributes.description,
+                        transaction.attributes.amount.value,
+                        Date(transaction.attributes.createdAt)
+                      )
+                    }
+                  >
+                    Save Transaction
+                  </button>
+                </div>
+              </li>
+              )
         }
-      >
-        Save Transaction
-      </button>
-    </li>
-  );
+  
 
   //if it is loading, it will return a loading parameter, otherwise it will return a transactions heading
   return transactions ? (
@@ -95,7 +113,9 @@ const Transactions = () => {
       </div>
     </div>
   ) : (
-    <h1 className="Loading">Loading</h1>
+    <div className="loading">
+      <h1 className="Loading">Loading</h1>
+    </div>
   );
 };
 //Test

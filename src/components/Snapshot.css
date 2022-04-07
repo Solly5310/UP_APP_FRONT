@@ -1,0 +1,23 @@
+.snapshotBox {
+  padding: 5px;
+  margin: 5px;
+  background-color:#f4d8cd;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+tr {
+  width: 33%
+}
+
+h2 {
+  color: #f15152;
+  text-align: center;
+}
+
+.top {
+  margin-top:0
+}
+
+ul {
+  padding: 20px
+}

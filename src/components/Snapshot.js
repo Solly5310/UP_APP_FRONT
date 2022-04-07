@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import "./Snapshot.css";
 const Snapshot = () => {
   const [snapshots, setSnapshots] = useState(false);
 
@@ -27,12 +27,25 @@ const Snapshot = () => {
   };
 
   const renderSnapshots = (e) => {
+    
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const transDate = new Date(e.date).toLocaleDateString(undefined, options)
+    
     return (
-      <div>
+      <div className="snapshotBox">
         <li>
-          <span>{e.description}</span>
-          <span>{e.value}</span>
-          <span>{e.date}</span>
+          <table>
+                  <tr>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                  </tr>
+                  <tr>
+                    <td>{e.description}</td>
+                    <td>{e.value}</td>
+                    <td>{transDate}</td>
+                  </tr>
+                </table>
         </li>
       </div>
     );
@@ -43,28 +56,28 @@ const Snapshot = () => {
   }, []);
 
   if (!snapshots) {
-    return <div> yepee</div>;
+    return <div> not snapshots!</div>;
   } else if (snapshots) {
     return (
       <div>
         <div>
-          <h2>Section one</h2>
+          <h2 className="top">Snapshot One</h2>
           <ul>{snapshots[0].map(renderSnapshots)}</ul>
         </div>
         <div>
-          <h2>Section Two</h2>
+          <h2>Snapshot Two</h2>
           <ul>{snapshots[1].map(renderSnapshots)}</ul>
         </div>
         <div>
-          <h2>Section Three</h2>
+          <h2>Snapshot Three</h2>
           <ul>{snapshots[2].map(renderSnapshots)}</ul>
         </div>
         <div>
-          <h2>Section Four</h2>
+          <h2>Snapshot Four</h2>
           <ul>{snapshots[3].map(renderSnapshots)}</ul>
         </div>
         <div>
-          <h2>Section Five</h2>
+          <h2>Snapshot Five</h2>
           <ul>{snapshots[4].map(renderSnapshots)}</ul>
         </div>
       </div>
